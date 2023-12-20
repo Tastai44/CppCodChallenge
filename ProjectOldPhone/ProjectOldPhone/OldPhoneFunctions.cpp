@@ -7,9 +7,13 @@
 
 using namespace std;
 
+// Function for get a list of numbers from user input.
 string OldPhoneButton::getListOfNumber() {
     string numberArray;
     getline(cin, numberArray); // Read the entire line from 
+    
+    // check whether  input is end with # or not
+    // returning a substring of the input excluding the '#' character if not.
     if (!numberArray.empty() && numberArray.back() != '#') {
         return "Invaiid input";
     }
@@ -19,11 +23,15 @@ string OldPhoneButton::getListOfNumber() {
     }
 }
 
+// Function to display welcome messages.
 void OldPhoneButton::welcomeWord() {
     cout << "Welcome to old phone..." << endl << "Type list of number: ";
 }
 
+// Function to convert numberic input to corresponding letters.
 string OldPhoneButton::OldPhonePad(string input) {
+
+    // Maping numberic to letter.
     const unordered_map<string, string> phonePad = {
         {"1", "&"}, {"11", "'"}, {"111", "("},
         {"2", "A"}, {"22", "B"}, {"222", "C"},
@@ -37,9 +45,10 @@ string OldPhoneButton::OldPhonePad(string input) {
     };
 
     auto letter = phonePad.find(input);
-    return (letter != phonePad.end()) ? letter->second : "";
+    return (letter != phonePad.end()) ? letter->second : ""; // Return the corresponding letter or an empty string if not found
 }
 
+// Function to delete a number from input base on the position before "*".
 string OldPhoneButton::DeleteLetter(string input) {
     string tem;
 
@@ -49,7 +58,7 @@ string OldPhoneButton::DeleteLetter(string input) {
     return tem.replace(position - 1, 1, " ");
 }
 
-// breck number if there are empty space between input numbers
+// Function to breck number if there are empty space between input numbers
 vector<string> OldPhoneButton::SeparateNumber(string input) {
     vector<string> result;
     string tem;
@@ -71,19 +80,25 @@ vector<string> OldPhoneButton::SeparateNumber(string input) {
     return result;
 }
 
+// Function to separate different numbers from each other by having " " between those number.
+// For example, "112233" becomes "1 22 333"
 string OldPhoneButton::CheckDuplicateNumber(string input) {
     string results;
 
     for (auto item = input.begin(); item != input.end(); item++) {
 
-        if (item != input.end() - 1) {
+        // // Check if the current character is not the last one in the input string.
+        if (item != input.end() - 1) { 
 
+            // Check if the current character is different from the next one,
+            // and also check if it's not equal to the previous character.
             if (*item != *next(item) &&
-                (item == input.end() - 1 || *item != *prev(item)))
+                (item == input.end() - 1 || *item != *prev(item))) 
             {
                 results += *item;
                 results += " ";
             }
+            // check if the current character is the same as the next one.
             else if (*item == *next(item) &&
                 (next(item) == input.end() - 1 || *next(item) != *next(next(item))))
             {
@@ -92,6 +107,7 @@ string OldPhoneButton::CheckDuplicateNumber(string input) {
                 results += " ";
                 item = next(item);
             }
+            // Similar logic for three consecutive equal characters.
             else if (*item == *next(item) &&
                 *next(item) == *next(next(item)) &&
                 (next(next(item)) == input.end() - 1 || *next(next(item)) != *next(next(next(item)))))
@@ -102,6 +118,7 @@ string OldPhoneButton::CheckDuplicateNumber(string input) {
                 results += " ";
                 item = next(next(item));
             }
+            // Similar logic for four consecutive equal characters.
             else if (*item == *next(item) &&
                 *next(item) == *next(next(item)) &&
                 *next(next(item)) == *next(next(next(item))) &&
@@ -115,11 +132,14 @@ string OldPhoneButton::CheckDuplicateNumber(string input) {
                 item = next(next(next(item)));
             }
         }
+        // logic that use for handle the last character in the input string.
         else {
+            // Check if the last character is different from the previous one.
             if (item == input.end() - 1 || *item != *prev(item))
             {
                 results += *item;
             }
+            // logic that use for handle other cases.
             else {
                 results += input;
             }
@@ -129,13 +149,16 @@ string OldPhoneButton::CheckDuplicateNumber(string input) {
     return results;
 }
 
+// Function to check if the input contains an asterisk (*)
 bool OldPhoneButton::containsAsterisk(const string& input) {
     return input.find('*') != string::npos;
 }
 
+// Function to display letters correspoding to numberic input
 string OldPhoneButton::DisplayLetter(string input) {
-    string temLetter;
-    string letterResults;
+    string temLetter; // variable for store temporary data.
+    string letterResults; // variable for store final result.
+
     if (containsAsterisk(input)) {
         temLetter = DeleteLetter(input);
     }
@@ -143,7 +166,7 @@ string OldPhoneButton::DisplayLetter(string input) {
         temLetter = input;
     }
 
-    // Big O^2
+    // Performance Big O^2
     for (const auto& item : SeparateNumber(temLetter)) {
         for (const auto& letter : SeparateNumber(CheckDuplicateNumber(item))) {
             letterResults += OldPhonePad(letter);

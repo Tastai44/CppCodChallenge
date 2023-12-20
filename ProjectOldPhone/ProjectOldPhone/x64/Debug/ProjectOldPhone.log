@@ -1,4 +1,3 @@
 ﻿  OldPhoneButton.cpp
-  OldPhoneButtonTest.cpp
-  Generating Code...
+E:\Github\CppOldPhoneChallenge\ProjectOldPhone\ProjectOldPhone\OldPhoneButton.cpp(14,20): warning C4101: 'oldPhone': unreferenced local variable
   ProjectOldPhone.vcxproj -> E:\Github\CppOldPhoneChallenge\ProjectOldPhone\x64\Debug\ProjectOldPhone.exe

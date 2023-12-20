@@ -62,9 +62,11 @@ void OldPhoneButtonTest::CheckDuplicateNumberTest() {
 void OldPhoneButtonTest::containsAsteriskTest() {
     OldPhoneButton oldPhone;
     cout << "Testing containsAsterisk" << endl;
+    cout << "Assume user input: 227*" << endl;
     if (oldPhone.containsAsterisk("11*") == true) {
         cout << "Test containsAsterisk case pass.";
     }
+    cout << endl << endl;
 }
 
 void OldPhoneButtonTest::DisplayLetterTest() {
@@ -81,6 +83,7 @@ void OldPhoneButtonTest::DisplayLetterTest() {
     cin >> expectResult;
     result += oldPhone.DisplayLetter(input);
     IsEqual(expectResult, result);
+    cout << endl << endl;
 }
 
 void OldPhoneButtonTest::SeparateNumberTest() {
@@ -101,4 +104,5 @@ void OldPhoneButtonTest::SeparateNumberTest() {
     else {
         cout << "Expect is not equal result";
     }
+    cout << endl << endl;
 }

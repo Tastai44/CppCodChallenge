@@ -10,10 +10,10 @@ using namespace std;
 
 int main()
 {
-    string listNumber;
-    OldPhoneButton oldPhone;
-    OldPhoneButtonTest oldPhoneTest;
-    string askForTest;
+    string listNumber; // Declare variable to store user input
+    OldPhoneButton oldPhone; // Declare instances of OldPhoneButton class.
+    OldPhoneButtonTest oldPhoneTest; // Declare instances of OldPhoneButtonTest class
+    string askForTest; // Variable to store user's response to whether they want to perform test cases.
     oldPhone.welcomeWord();
     listNumber = oldPhone.getListOfNumber();
     if (listNumber == "Invaiid input") {
